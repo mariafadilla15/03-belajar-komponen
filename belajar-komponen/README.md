@@ -9,7 +9,7 @@
 
 ## **Praktikum 1: Mendefinisikan Komponen**
 ---
-**Membuat project baru**
+**Membuat Project Baru**
 
 ![Screenshot](assets-report/00.png)
 
@@ -51,3 +51,44 @@ export default function Home() {
 ![Screenshot](assets-report/03.png)
 
 - Dalam bagian ini, saya mempelajari cara mendefinisikan komponon dan cara saya memperbaiki erorr dengan cara menambahkan code di file next.config.js.
+
+## **Praktikum 02: Mengimpor dan Mengekspor Komponen**
+---
+
+**Membuat Komponen Baru**
+
+```bash
+import Profile from "./profile";
+
+export function Gallery() {
+    return (
+        <div className="columns-3">
+            <Profile />
+            <Profile />
+            <Profile />
+        </div>
+    );
+}
+```
+
+**Impor Komponen**
+
+Melakukan impor komponen di src/app/page.tsx.
+
+```bash
+import { Gallery } from "@/components/gallery";
+
+...
+```
+
+### **Jawaban Soal 2**
+
+Bagaimana tampilannya saat ini?
+
+![Screenshot](assets-report/04.png)
+
+Saat ini tampilannya terlihat lebih berantakan daripada sebelumnya.
+
+- import { Gallery } from "@/components/gallery"; merupakan pernyataan import yang mengimpor komponen Gallery dari lokasi relatif "@/components/gallery".
+- JSX dan React berbeda, dapat digunakan bersama, namun dapat pula menggunakannya sendiri-sendiri. JSX merupakan ekstensi sintaks, sedangkan React adalah library JavaScript.
+- JSX mirip dengan HTML, tapi sebenarnya diubah menjadi objek JavaScript. Ketika mengembalikan dua objek dari sebuah fungsi, perlu dibungkus ke dalam sebuah array. Begitu juga dengan JSX, dua tag perlu dibungkus ke dalam sebuah fragment.
