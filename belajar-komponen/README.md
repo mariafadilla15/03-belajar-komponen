@@ -93,6 +93,55 @@ Saat ini tampilannya terlihat lebih berantakan daripada sebelumnya.
 - JSX dan React berbeda, dapat digunakan bersama, namun dapat pula menggunakannya sendiri-sendiri. JSX merupakan ekstensi sintaks, sedangkan React adalah library JavaScript.
 - JSX mirip dengan HTML, tapi sebenarnya diubah menjadi objek JavaScript. Ketika mengembalikan dua objek dari sebuah fungsi, perlu dibungkus ke dalam sebuah array. Begitu juga dengan JSX, dua tag perlu dibungkus ke dalam sebuah fragment.
 
+### **Jawaban Soal 3**
+
+Silahkan perbaiki kode JSX berikut ini. Anda boleh menggunakan konverter atau perbaiki secara manual.
+
+```bash
+    export default function Bio() {
+        return(
+            <div class="intro">
+                <h1>Selamat Datang di website MARIA!</h1>
+            </div>
+            <p class="summary">
+                Anda dapat membaca uneg-uneg saya di sini.
+                <br><br>
+                <b>Juga ada <i>foto</b></i> ilmuwan!
+            </p>
+        );
+    }
+```
+
+Perbaikan kode nya adalah sebagai berikut:
+
+```bash
+import { Gallery } from "@/components/gallery";
+
+export default function Bio() {
+  return (
+      <div className="intro">
+          <h1>Selamat Datang di website MARIA!</h1>
+          <p className="summary">
+              Anda dapat membaca uneg-uneg saya di sini.
+              <br /><br />
+              <b>Juga ada <i>foto</i> ilmuwan!</b>
+              <Gallery />
+          </p>
+      </div>
+  );
+}
+```
+
+![Screenshot](assets-report/05.png)
+
+Perbaikan yang dilakukan:
+- Mengganti class menjadi className karena di JSX, kita menggunakan className untuk menentukan kelas CSS.
+- Memindahkan tag <p> ke dalam <div> agar menjadi satu kesatuan.
+- Menutup tag <br /> dengan tanda slash.
+- Menghapus tag <b> yang kurang ditutup dengan benar.
+- Menghapus tag <i> yang salah penutupannya.
+- Memperbaiki penutupan tag <i> yang seharusnya di dalam tag <b>.
+
 ## **Praktikum 03: Menggunakan JSX Dinamis**
 ---
 
@@ -159,4 +208,3 @@ const person = {
     );
   }
 ```
-
