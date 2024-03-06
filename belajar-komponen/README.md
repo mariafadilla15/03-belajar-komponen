@@ -92,3 +92,14 @@ Saat ini tampilannya terlihat lebih berantakan daripada sebelumnya.
 - import { Gallery } from "@/components/gallery"; merupakan pernyataan import yang mengimpor komponen Gallery dari lokasi relatif "@/components/gallery".
 - JSX dan React berbeda, dapat digunakan bersama, namun dapat pula menggunakannya sendiri-sendiri. JSX merupakan ekstensi sintaks, sedangkan React adalah library JavaScript.
 - JSX mirip dengan HTML, tapi sebenarnya diubah menjadi objek JavaScript. Ketika mengembalikan dua objek dari sebuah fungsi, perlu dibungkus ke dalam sebuah array. Begitu juga dengan JSX, dua tag perlu dibungkus ke dalam sebuah fragment.
+
+## **Praktikum 03: Menggunakan JSX Dinamis**
+---
+
+**Membuat Komponen Baru**
+
+Membuat file baru di src/components/todolist.tsx
+
+```bash
+
+```
