@@ -134,13 +134,15 @@ export default function Bio() {
 
 ![Screenshot](assets-report/05.png)
 
+Error yang terjadi karena kesalahan dalam struktur JSX pada fungsi Bio().
+
 Perbaikan yang dilakukan:
 - Mengganti class menjadi className karena di JSX, kita menggunakan className untuk menentukan kelas CSS.
-- Memindahkan tag <p> ke dalam <div> agar menjadi satu kesatuan.
-- Menutup tag <br /> dengan tanda slash.
-- Menghapus tag <b> yang kurang ditutup dengan benar.
-- Menghapus tag <i> yang salah penutupannya.
-- Memperbaiki penutupan tag <i> yang seharusnya di dalam tag <b>.
+- Memindahkan tag `<p>` ke dalam `<div>` agar menjadi satu kesatuan.
+- Menutup tag `<br />` dengan tanda slash.
+- Menghapus tag `<b>` yang kurang ditutup dengan benar.
+- Menghapus tag `<i>` yang salah penutupannya.
+- Memperbaiki penutupan tag `<i>` yang seharusnya di dalam tag `<b>`.
 
 ## **Praktikum 03: Menggunakan JSX Dinamis**
 ---
@@ -208,3 +210,68 @@ const person = {
     );
   }
 ```
+
+**Impor Komponen**
+
+Melakukan impor komponen di src/app/page.tsx seperti berikut ini.
+
+```bash
+import { Gallery } from "@/components/gallery";
+import TodoList from "@/components/todolist";
+
+export default function Home() {
+    return (
+        <section>
+            <h1 className="font-semibold text-slate-900 truncate pr-20 text-center">Ilmuwan yang luar biasa</h1>
+            <hr />
+            <Gallery />
+            <hr />
+            <TodoList />
+        </section>
+    );
+}
+```
+
+![Screenshot](assets-report/06.png)
+
+### **Jawaban Soal 5**
+
+Membuka file src/components/todolist.tsx dan melakukan ekstrak URL gambar ke dalam objek person.
+
+```bash
+const person = {
+  name: 'Gregorio Y. Zara',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  },
+  imageUrl: 'https://i.imgur.com/7vQD0fPs.jpg' // Ekstrak URL gambar ke dalam objek person
+};
+
+export default function TodoList() {
+    return (
+        <div style={person.theme}>
+            <h1>{person.name}&apos;s Todos</h1>
+            <img
+            className="avatar"
+            src={person.imageUrl} // Menggunakan URL gambar dari objek person
+            alt="Gregorio Y. Zara"
+        />
+        <ul>
+            <li>Improve the videophone</li>
+            <li>Prepare aeronautics lectures</li>
+            <li>Work on the alcohol-fuelled engine</li>
+        </ul>
+        </div>
+    );
+}
+```
+
+Hasil tampilannya adalah sebagai berikut:
+
+![Screenshot](assets-report/07.png)
+
+Apakah ada perbedaan pada tampilan web saat ini?
+
+- Pada tampilan web saat ini, jika dibandingkan dengan sebelum dilakukan ekstrak URL gambar ke dalam objek person, maka tampilannya adalah sama. Namun, jika dibandingkan dengan tampilan web pada soal 2, maka tampilannya sudah berbeda. Typing judulnya berbeda dan secara tata letak jarak antara judul dengan gambar sudah lebih rapi. Perbedaan utamanya terletak pada struktur markup HTML dan penggunaan kelas CSS. Yang pertama lebih kompleks dalam hal struktur HTML dan penggunaan kelas CSS yang diterapkan langsung ke elemen, sedangkan yang kedua lebih sederhana dengan hanya menggunakan elemen HTML tanpa kelas CSS yang diterapkan secara langsung.
+- Pada tampilan web saat ini juga, yang ditampilkan ialah dua komponen, `Gallery` dan `ToDoList`.
