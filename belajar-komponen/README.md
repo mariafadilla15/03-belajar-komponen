@@ -275,3 +275,103 @@ Apakah ada perbedaan pada tampilan web saat ini?
 
 - Pada tampilan web saat ini, jika dibandingkan dengan sebelum dilakukan ekstrak URL gambar ke dalam objek person, maka tampilannya adalah sama. Namun, jika dibandingkan dengan tampilan web pada soal 2, maka tampilannya sudah berbeda. Typing judulnya berbeda dan secara tata letak jarak antara judul dengan gambar sudah lebih rapi. Perbedaan utamanya terletak pada struktur markup HTML dan penggunaan kelas CSS. Yang pertama lebih kompleks dalam hal struktur HTML dan penggunaan kelas CSS yang diterapkan langsung ke elemen, sedangkan yang kedua lebih sederhana dengan hanya menggunakan elemen HTML tanpa kelas CSS yang diterapkan secara langsung.
 - Pada tampilan web saat ini juga, yang ditampilkan ialah dua komponen, `Gallery` dan `ToDoList`.
+
+**Ubah Ekspresi URL di src**
+
+Pada file src/components/todolist.tsx ubahlah objek person dan tambah variabel baseUrl. URL lengkap gambar dibagi menjadi empat bagian: URL dasar, imageId, imageSize, dan ekstensi file.
+
+Kita ingin URL gambar menggabungkan atribut-atribut ini bersama-sama: URL dasar (selalu 'https://i.imgur.com/'), imageId ('7vQD0fP'), imageSize ('s'), dan ekstensi file (selalu '.jpg'). Namun, ada yang salah dengan atribut src.
+
+Bisakah anda memperbaikinya?
+
+```bash
+const baseUrl = 'https://i.imgur.com/';
+const person = {
+  name: 'Gregorio Y. Zara',
+  imageId: '7vQD0fP',
+  imageSize: 's',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    <div style={person.theme}>
+      <h1>{person.name}'s Todos</h1>
+      <img
+        className="avatar"
+        src="{baseUrl}{person.imageId}{person.imageSize}.jpg"
+        alt={person.name}
+      />
+      <ul>
+        <li>Improve the videophone</li>
+        <li>Prepare aeronautics lectures</li>
+        <li>Work on the alcohol-fuelled engine</li>
+      </ul>
+    </div>
+  );
+}
+```
+
+![Screenshot](assets-report/08.png)
+
+
+### **Jawaban Soal 6**
+
+```bash
+const baseUrl = 'https://i.imgur.com/';
+const person = {
+  name: 'Gregorio Y. Zara',
+  imageId: '7vQD0fP',
+  imageSize: 's',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+
+export default function TodoList() {
+  return (
+    <div style={person.theme}>
+      <h1>{person.name}'s Todos</h1>
+      <img
+        className="avatar"
+        src={`${baseUrl}${person.imageId}${person.imageSize}.jpg`}
+        alt={person.name}
+      />
+      <ul>
+        <li>Improve the videophone</li>
+        <li>Prepare aeronautics lectures</li>
+        <li>Work on the alcohol-fuelled engine</li>
+      </ul>
+    </div>
+  );
+}
+```
+
+![Screenshot](assets-report/09.png)
+
+- Ketika menulis komponen React, jangan gunakan kurung kurawal ({}) untuk menggabungkan variabel di atribut src. Ini tidak berfungsi, karena kurung kurawal hanya berlaku di JSX, bukan di string. Jika kita melakukannya, variabel akan tetap sama, bukan berubah. Gunakan template literal ($ {}) untuk memasukkan ekspresi ke dalam string. Template literal adalah fitur JavaScript (ES6) yang memperjelas string. kita dapat membuat URL gambar yang sesuai dengan variabel kita. Ini juga memudahkan pembacaan dan pemeliharaan kode kita. Template literal membantu kita membuat komponen React yang bergerak dan terbaca.
+
+- Mengubah nilai dari `imageSize` menjadi `'b'`
+
+```bash
+const baseUrl = 'https://i.imgur.com/';
+const person = {
+  name: 'Gregorio Y. Zara',
+  imageId: '7vQD0fP',
+  imageSize: 'b',
+  theme: {
+    backgroundColor: 'black',
+    color: 'pink'
+  }
+};
+```
+
+Hasilnya adalah:
+
+![Screenshot](assets-report/10.png)
+
+- Gambar bisa menyesuaikan ukuran setelah nilai dari `imageSize` diubah
