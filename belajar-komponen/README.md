@@ -1,4 +1,4 @@
-# **Laporan Praktikum - #02 Components, JSX, dan Props**
+# **Laporan Praktikum - #03 Components, JSX, dan Props**
 
 |  | Pemrograman Berbasis Framework 2024 |
 |--|--|
