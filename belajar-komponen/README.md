@@ -381,7 +381,7 @@ Hasilnya adalah:
 
 **Membuat Komponen Baru**
 
-Membuat file baru di src/components/mygallery.tsx berisi kode seperti berikut:
+Membuat file baru di `src/components/mygallery.tsx` berisi kode seperti berikut:
 
 ```bash
 import { getImageUrl } from '@/utils/utils';
@@ -444,5 +444,111 @@ export default function MyGallery() {
 ```
 
 ### **Jawaban Soal 7**
+
+Jika kode di atas terdapat error, silakan diperbaiki.
+
+Komponen MyGallery ini berisi dua markup yang sama persis. Ekstraklah menjadi komponen MyProfile untuk mengurangi duplikasi. Anda perlu memilih props apa saja yang akan dikirimkan.
+
+`src/components/mygallery.tsx`
+
+```bash
+import MyProfile from './myprofile';
+
+const MyGallery = () => {
+  return (
+    <div>
+      <h1>Notable Scientists</h1>
+      <MyProfile
+        name="Maria Skłodowska-Curie"
+        imageUrl='szV5sdG'
+        profession="Fisikawan dan kimiawan"
+        awards={[
+          "Penghargaan Nobel Fisika",
+          "Penghargaan Nobel Kimia",
+          "Medali Davy",
+          "Medali Matteucci"
+        ]}
+        discovery="polonium (unsur kimia)"
+      />
+      <MyProfile
+        name="Katsuko Saruhashi"
+        imageUrl='YfeOqp2'
+        profession="Ahli Geokimia"
+        awards={[
+          "Penghargaan Miyake Geokimia",
+          "Penghargaan Tanaka"
+        ]}
+        discovery="sebuah metode untuk mengukur karbon dioksida pada air laut"
+      />
+    </div>
+  );
+}
+
+export default MyGallery;
+```
+
+`src/components/myprofile.tsx`
+
+```bash
+interface ProfileProps {
+    name: string;
+    imageUrl: string;
+    profession: string;
+    awards: string[];
+    discovery: string;
+  }
+  
+  const MyProfile: React.FC<ProfileProps> = ({ name, imageUrl, profession, awards, discovery }) => {
+    return (
+      <section className="profile">
+        <h2>{name}</h2>
+        <img
+          className="avatar"
+          src={imageUrl}
+          alt={name}
+          width={70}
+          height={70}
+        />
+        <ul>
+          <li>
+            <b>Profesi: </b> 
+            {profession}
+          </li>
+          <li>
+            <b>Penghargaan: {awards.length} </b> 
+            ({awards.join(', ')})
+          </li>
+          <li>
+            <b>Telah Menemukan: </b>
+            {discovery}
+          </li>
+        </ul>
+      </section>
+    );
+  }
+  
+  export default MyProfile;
+```
+
+`src/app/page.tsx`
+
+```bash
+import MyGallery from "@/components/mygallery";
+
+export default function Home() {
+  return (
+    <section>
+      <h1 className="font-semibold text-slate-900 truncate pr-20 text-center">Ilmuwan yang luar biasa</h1>
+      <hr />
+      <MyGallery />
+    </section>
+  );
+}
+```
+
+Hasil tampilannya adalah sebagai berikut:
+
+![Screenshoot](assets-report/11.png)
+
 ### **Jawaban Soal 8**
 ### **Jawaban Soal 9**
