@@ -575,5 +575,52 @@ Tampilannya menjadi:
 
 - Sejauh ini tampilannya masih sama dengan tampilan sebelum diekstrak menjadi komponen `MyProfile`.
 
+**Membuat fungsi `getImageUrl`**
+
+Membuat file baru di `src/utils/utils.tsx`.
+
+```bash
+export function getImageUrl(imageId, size = 's') {
+  return (
+    'https://i.imgur.com/' +
+    imageId +
+    size +
+    '.jpg'
+  );
+}
+```
+
+**Membuat komponen baru**
+
+Membuat file baru di `src/components/myprofile.tsx`.
+
+```bash
+import { getImageUrlV2 } from '@/utils/utils';
+
+function MyAvatar({ person, size }) {
+  return (
+    <img
+      className="avatar"
+      src={getImageUrl(person, 'b')}
+      alt={person.name}
+      width={size}
+      height={size}
+    />
+  );
+}
+
+export default function MyProfile() {
+  return (
+    <MyAvatar
+      size={40}
+      person={{ 
+        name: 'Gregorio Y. Zara', 
+        imageId: '7vQD0fP'
+      }}
+    />
+  );
+}
+```
+
 ### **Jawaban Soal 8**
 ### **Jawaban Soal 9**
