@@ -622,5 +622,132 @@ export default function MyProfile() {
 }
 ```
 
+Menambahkan fungsi getImageUrlV2 seperti berikut di file yang sama yaitu `utils.tsx`.
+
+```bash
+src/utils/utils.tsx
+
+export function getImageUrlV2(person, size) {
+  return (
+    'https://i.imgur.com/' +
+    person.imageId +
+    size +
+    '.jpg'
+  );
+}
+```
+
+Pada contoh ini, komponen `MyAvatar` menerima prop size yang berupa angka dan akan digunakan untuk menentukan lebar dan tinggi `< img >`. Prop `size` dibuat `40` pada contoh ini. Bagaimanapun, jika Anda membuka gambar tersebut di web, Anda akan melihat bahwa gambarnya akan lebih besar (`160` piksel). Ukuran gambar yang sebenarnya ditentukan oleh ukuran thumbnail yang Anda minta.
+
 ### **Jawaban Soal 8**
+
+Jika kode di atas terdapat error, silakan diperbaiki.
+
+Ubahlah komponen MyAvatar untuk diolah ukuran gambarnya berdasarkan prop size. Khususnya, jika size kurang dari 90, kirimkan 's' ("small") bukan 'b' ("big") pada fungsi getImageUrl. Pastikan bahwa perubahan yang Anda buat berjalan dengan cara me-render avatars dengan nilai prop size yang berbeda dan buka gambar pada tab baru di browser.
+
+`src/utils/utils.tsx`
+
+```bash
+export function getImageUrl(imageId: string, size = 's') {
+    return (
+      'https://i.imgur.com/' +
+      imageId +
+      size +
+      '.jpg'
+    );
+  }
+
+export function getImageUrlV2(person: { imageId: string; }, size: string) {
+    return (
+      'https://i.imgur.com/' +
+      person.imageId +
+      size +
+      '.jpg'
+    );
+}
+```
+
+- Dalam kode di atas, saya telah menambahkan tipe data `TypeScript` untuk parameter fungsi `getImageUrl` dan `getImageUrlV2` untuk memastikan bahwa mereka menerima `string`.
+
+`src/components/myprofile.tsx`
+
+```bash
+import { getImageUrlV2 } from '@/utils/utils';
+
+type Person = {
+    name: string;
+    imageId: string;
+};
+
+type MyProfileProps = {
+    person: Person;
+    size: number;
+};
+
+function MyAvatar({ person, size }: MyProfileProps) {
+    const imageSize = size < 90 ? 's' : 'b';
+  return (
+    <img
+      className="avatar"
+      src={getImageUrlV2(person, imageSize)}
+      alt={person.name}
+      width={size}
+      height={size}
+    />
+  );
+}
+
+export default function MyProfile() {
+  return (
+    <MyAvatar
+      size={40}
+      person={{ 
+        name: 'Gregorio Y. Zara', 
+        imageId: '7vQD0fP'
+      }}
+    />
+  );
+}
+```
+
+`src/components/mygallery/tsx`
+
+```bash
+import MyProfile from './myprofile';
+
+const MyGallery = () => {
+  return (
+    <div>
+      <h1>Notable Scientists</h1>
+      <MyProfile/>
+    </div>
+  );
+}
+
+export default MyGallery;
+```
+
+- Pada kode di atas, saya menambahkan struktur tipe data `Person` dan `MyProfileProps`, digunakan untuk memastikan bahwa properti yang diperlukan ada dan memiliki tipe data yang sesuai. Kemudian, prop `avatarProps` digunakan untuk mengirimkan data `person` dan `size` ke `MyAvatar`.
+- Pada kode di atas, saya mengganti pemanggilan fungsi `getImageUrl` dengan `getImageUrlV2` di dalam komponen `MyAvatar`. Fungsi `getImageUrlV2` dipanggil dengan objek `person` dan variabel `imageSize` yang ditentukan berdasarkan prop `size`.
+- Jika sebelumnya `MyAvatar` selalu menggunakan `‘b’` untuk ukuran gambar, yang menghasilkan gambar berukuran besar (`160` piksel) terlepas dari nilai `size`, maka pada kode di atas saya menggantinya dengan operator ternary dengan kode `const imageSize = size < 90 ? 's' : 'b';` untuk menentukan ukuran gambar berdasarkan `prop size` yang diterima oleh komponen MyAvatar. Jika size kurang < 90, akan dikirimkan 's' ("small") dan jika tidak, akan dikirimkan 'b' ("big") saat memanggil fungsi `getImageUrlV2`.
+- Dalam `MyGallery`, sekarang hanya me-render `MyProfile` tanpa melewatkan properti tambahan apa pun. yang berarti `MyProfile` akan me-render dengan nilai default yang ditentukan di dalamnya sendiri.
+- Komponen `MyProfile` tidak lagi menerima props dari `MyGallery`, sehingga akan menggunakan nilai default yang didefinisikan di dalamnya, yaitu `size={40}` dan objek `person` dengan nama ‘Gregorio Y. Zara’ dan imageId ‘7vQD0fP’.
+
+Hasil tampilannya adalah:
+
+- `size={40}`
+
+![Screenshoot](assets-report/14.png)
+
+- `size={95}`
+
+![Screenshoot](assets-report/15.png)
+
+Dari percobaan di atas, beberapa yang saya pelajari ialah:
+
+- **Penggunaan Properti dalam React**: Memahami bagaimana properti digunakan untuk mentransfer data antar komponen.
+- **Kondisional Rendering**: Penggunaan operator ternary untuk logika kondisional, seperti menentukan ukuran gambar.
+- **Penggunaan Fungsi Utilitas**: Menerapkan fungsi utilitas untuk tugas-tugas tertentu, seperti pembuatan URL gambar.
+- **Fleksibilitas dalam Tampilan**: Komponen dapat digunakan secara fleksibel untuk menampilkan data dengan mengubah properti yang sesuai.
+
 ### **Jawaban Soal 9**

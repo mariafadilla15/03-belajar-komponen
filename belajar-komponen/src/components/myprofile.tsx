@@ -1,10 +1,21 @@
 import { getImageUrlV2 } from '@/utils/utils';
 
-function MyAvatar({ person, size }) {
+type Person = {
+    name: string;
+    imageId: string;
+};
+
+type MyProfileProps = {
+    person: Person;
+    size: number;
+};
+
+function MyAvatar({ person, size }: MyProfileProps) {
+    const imageSize = size < 90 ? 's' : 'b';
   return (
     <img
       className="avatar"
-      src={getImageUrl(person, 'b')}
+      src={getImageUrlV2(person, imageSize)}
       alt={person.name}
       width={size}
       height={size}
@@ -15,6 +26,7 @@ function MyAvatar({ person, size }) {
 export default function MyProfile() {
   return (
     <MyAvatar
+      //size={95}
       size={40}
       person={{ 
         name: 'Gregorio Y. Zara', 
