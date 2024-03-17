@@ -443,93 +443,6 @@ export default function MyGallery() {
 }
 ```
 
-### **Jawaban Soal 7**
-
-Jika kode di atas terdapat error, silakan diperbaiki.
-
-Komponen MyGallery ini berisi dua markup yang sama persis. Ekstraklah menjadi komponen MyProfile untuk mengurangi duplikasi. Anda perlu memilih props apa saja yang akan dikirimkan.
-
-`src/components/mygallery.tsx`
-
-```bash
-import MyProfile from './myprofile';
-
-const MyGallery = () => {
-  return (
-    <div>
-      <h1>Notable Scientists</h1>
-      <MyProfile
-        name="Maria Skłodowska-Curie"
-        imageUrl='szV5sdG'
-        profession="Fisikawan dan kimiawan"
-        awards={[
-          "Penghargaan Nobel Fisika",
-          "Penghargaan Nobel Kimia",
-          "Medali Davy",
-          "Medali Matteucci"
-        ]}
-        discovery="polonium (unsur kimia)"
-      />
-      <MyProfile
-        name="Katsuko Saruhashi"
-        imageUrl='YfeOqp2'
-        profession="Ahli Geokimia"
-        awards={[
-          "Penghargaan Miyake Geokimia",
-          "Penghargaan Tanaka"
-        ]}
-        discovery="sebuah metode untuk mengukur karbon dioksida pada air laut"
-      />
-    </div>
-  );
-}
-
-export default MyGallery;
-```
-
-`src/components/myprofile.tsx`
-
-```bash
-interface ProfileProps {
-    name: string;
-    imageUrl: string;
-    profession: string;
-    awards: string[];
-    discovery: string;
-  }
-  
-  const MyProfile: React.FC<ProfileProps> = ({ name, imageUrl, profession, awards, discovery }) => {
-    return (
-      <section className="profile">
-        <h2>{name}</h2>
-        <img
-          className="avatar"
-          src={imageUrl}
-          alt={name}
-          width={70}
-          height={70}
-        />
-        <ul>
-          <li>
-            <b>Profesi: </b> 
-            {profession}
-          </li>
-          <li>
-            <b>Penghargaan: {awards.length} </b> 
-            ({awards.join(', ')})
-          </li>
-          <li>
-            <b>Telah Menemukan: </b>
-            {discovery}
-          </li>
-        </ul>
-      </section>
-    );
-  }
-  
-  export default MyProfile;
-```
-
 `src/app/page.tsx`
 
 ```bash
@@ -546,9 +459,121 @@ export default function Home() {
 }
 ```
 
-Hasil tampilannya adalah sebagai berikut:
+Hasil tampilannya adalah:
 
 ![Screenshoot](assets-report/11.png)
+
+### **Jawaban Soal 7**
+
+Jika kode di atas terdapat error, silakan diperbaiki. Komponen MyGallery ini berisi dua markup yang sama persis. Ekstraklah menjadi komponen MyProfile untuk mengurangi duplikasi. Anda perlu memilih props apa saja yang akan dikirimkan.
+
+`src/components/mygallery.tsx`
+
+```bash
+import MyProfile from '@/components/myprofile';
+
+export default function MyGallery() {
+  return (
+    <div>
+      <h1>Notable Scientists</h1>
+      <MyProfile
+        name="Maria Skłodowska-Curie"
+        imageUrl="szV5sdG"
+        profession="Fisikawan dan kimiawan"
+        awards={['Penghargaan Nobel Fisika', 'Penghargaan Nobel Kimia', 'Medali Davy', 'Medali Matteucci']}
+        discovery="polonium (unsur kimia)"
+      />
+      <MyProfile
+        name="Katsuko Saruhashi"
+        imageUrl="YfeOqp2"
+        profession="Ahli Geokimia"
+        awards={['Penghargaan Miyake Geokimia', 'Penghargaan Tanaka']}
+        discovery="sebuah metode untuk mengukur karbon dioksida pada air laut"
+      />
+    </div>
+  );
+}
+```
+
+`src/components/myprofile.tsx`
+
+```bash
+import { getImageUrl } from '@/utils/utils';
+
+type ProfileProps = {
+  name: string;
+  imageUrl: string;
+  profession: string;
+  awards: string[];
+  discovery: string;
+};
+
+export default function MyProfile({ name, imageUrl, profession, awards, discovery }: ProfileProps) {
+  return (
+    <section className="profile">
+      <h2>{name}</h2>
+      <img
+        className="avatar"
+        src={getImageUrl(imageUrl)}
+        alt={name}
+        width={70}
+        height={70}
+      />
+      <ul>
+        <li>
+          <b>Profesi: </b> 
+          {profession}
+        </li>
+        <li>
+          <b>Penghargaan: {awards.length} </b> 
+          ({awards.join(', ')})
+        </li>
+        <li>
+          <b>Telah Menemukan: </b>
+          {discovery}
+        </li>
+      </ul>
+    </section>
+  );
+}
+```
+
+Hasil tampilannya adalah sebagai berikut:
+
+![Screenshoot](assets-report/12.png)
+
+- Dalam praktikum ini, saya telah mempelajari tentang penggunaan props dalam React untuk mengirim data antara komponen. Penggunaan props memungkinkan kita untuk membuat komponen yang lebih fleksibel dan dapat digunakan kembali dengan mengirimkan data dinamis ke dalamnya.
+- Dalam contoh yang diberikan, saya belajar tentang cara membuat komponen yang lebih terstruktur dan efisien dengan mengekstrak bagian-bagian tertentu dari markup menjadi komponen terpisah. Hal ini dapat dilakukan dengan membuat komponen yang menerima props sebagai input untuk menampilkan data secara dinamis.
+- Tampilan saat ini, dengan menggunakan komponen MyProfile, kita dapat menampilkan setiap profil dengan memberikan data yang sesuai sebagai props ke komponen tersebut. Hasilnya adalah tampilan yang lebih terstruktur, mudah diperbaiki, dan mudah dimengerti.
+
+Misalkan hanya ingin menampilkan satu profil: 
+
+`src/components/mygallery.tsx`
+
+```bash
+import MyProfile from '@/components/myprofile';
+
+export default function MyGallery() {
+  return (
+    <div>
+      <h1>Notable Scientists</h1>
+      <MyProfile
+        name="Maria Skłodowska-Curie"
+        imageUrl="szV5sdG"
+        profession="Fisikawan dan kimiawan"
+        awards={['Penghargaan Nobel Fisika', 'Penghargaan Nobel Kimia', 'Medali Davy', 'Medali Matteucci']}
+        discovery="polonium (unsur kimia)"
+      />
+    </div>
+  );
+}
+```
+
+Tampilannya menjadi:
+
+![Screenshoot](assets-report/13.png)
+
+- Sejauh ini tampilannya masih sama dengan tampilan sebelum diekstrak menjadi komponen `MyProfile`.
 
 ### **Jawaban Soal 8**
 ### **Jawaban Soal 9**
